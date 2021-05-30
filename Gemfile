@@ -12,6 +12,7 @@ gem 'puma', '~> 3.11'
 gem 'bcrypt', '~> 3.1.7'
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'bootsnap', '>= 1.1.0', require: false
+gem 'activerecord-postgis-adapter'
 
 #Debug, Framework, Test
 group :development, :test do
