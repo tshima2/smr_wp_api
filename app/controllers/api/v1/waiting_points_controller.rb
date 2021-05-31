@@ -15,8 +15,8 @@ module Api
           waiting_points = WaitingPoint.retrieve_by_specified_dist(dist, lat, lon)
   
           #待機場所取得時のCORS（Cross-Origin Resource Sharing）回避
-          #response.set_header('Access-Control-Allow-Origin', 'http://192.168.0.22:3000')
-          response.set_header('Access-Control-Allow-Origin', '*')
+          response.set_header('Access-Control-Allow-Origin', 'http://192.168.0.21:4499')
+          #response.set_header('Access-Control-Allow-Origin', '*')
           render json: { status: 'SUCCESS', message: 'Retrieved waiting_points within specified dist', data: waiting_points }          
         rescue TypeError
           render json: { status: 'ERROR', message: 'Missing some parameters' }
