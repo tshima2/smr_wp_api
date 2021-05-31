@@ -22,6 +22,6 @@ _points << "POINT(140.0036023 35.7120936)"
 _points << "POINT(140.0291712 35.6851166)"
 
 (0..4).each do |index|
-  _name=_names[index]; _memo="memo"+index.to_s; _geog=_points[index]
+  _name=_names[index]; _memo=Faker::JapaneseMedia::DragonBall.character; _geog=_points[index]
   WaitingPoint.create(name: _name, memo: _memo, geog: _geog)
 end

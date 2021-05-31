@@ -9,6 +9,22 @@ module Api
         render json: { status: 'SUCCESS', message: 'Loaded waiting_points', data: waiting_points }
       end
 
+      def retrieve        
+        begin 
+          dist = Float(params[:dist]); lat = Float(params[:lat]); lon = Float(params[:lon])
+          waiting_points = WaitingPoint.retrieve_by_specified_dist(dist, lat, lon)
+  
+          #待機場所取得時のCORS（Cross-Origin Resource Sharing）回避
+          #response.set_header('Access-Control-Allow-Origin', 'http://192.168.0.22:3000')
+          response.set_header('Access-Control-Allow-Origin', '*')
+          render json: { status: 'SUCCESS', message: 'Retrieved waiting_points within specified dist', data: waiting_points }          
+        rescue TypeError
+          render json: { status: 'ERROR', message: 'Missing some parameters' }
+        rescue ArgumentError
+          render json: { status: 'ERROR', message: 'Specied some invalid parameters' }
+        end 
+      end
+
       def show
         render json: { status: 'SUCCESS', message: 'Loaded the waiting_point', data: @waiting_point }
       end
