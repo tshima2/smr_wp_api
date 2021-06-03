@@ -11,12 +11,12 @@ module Api
 
       def retrieve        
         begin 
-          dist = Float(params[:dist]); lat = Float(params[:lat]); lon = Float(params[:lon])
-          waiting_points = WaitingPoint.retrieve_by_specified_dist(dist, lat, lon)
+          tid = Integer(params[:tid]); dist = Float(params[:dist]); lat = Float(params[:lat]); lon = Float(params[:lon])
+          waiting_points = WaitingPoint.retrieve_by_specified_dist(tid, dist, lat, lon)
   
           #待機場所取得時のCORS（Cross-Origin Resource Sharing）回避
-          response.set_header('Access-Control-Allow-Origin', 'http://192.168.0.21:4499')
-          #response.set_header('Access-Control-Allow-Origin', '*')
+          response.set_header('Access-Control-Allow-Origin', '*')
+          #response.set_header('Access-Control-Allow-Origin', 'http://192.168.0.21:4499')
           render json: { status: 'SUCCESS', message: 'Retrieved waiting_points within specified dist', data: waiting_points }          
         rescue TypeError
           render json: { status: 'ERROR', message: 'Missing some parameters' }
@@ -31,10 +31,14 @@ module Api
 
       def create
         waiting_point = WaitingPoint.new(waiting_point_params)
+
+        #待機場所取得時のCORS（Cross-Origin Resource Sharing）回避
+        response.set_header('Access-Control-Allow-Origin', '*')
+        #response.set_header('Access-Control-Allow-Origin', 'http://192.168.0.21:4499')
         if waiting_point.save
           render json: { status: 'SUCCESS', data: waiting_point }
         else
-          render json: { status: 'ERROR', data: waiting_point.errors }
+          render json: { status: 'ERROR', data: waiting_point.errors.messages.to_s }
         end        
       end
 
@@ -57,7 +61,7 @@ module Api
       end
 
       def waiting_point_params
-        params.require(:waiting_point).permit(:name, :memo, :geog)
+        params.permit(:tid, :name, :memo, :geog)
       end
     end
 

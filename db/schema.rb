@@ -10,18 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_30_070306) do
+ActiveRecord::Schema.define(version: 2021_06_03_064119) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "postgis"
 
   create_table "waiting_points", force: :cascade do |t|
+    t.integer "tid"
     t.string "name"
     t.string "memo"
     t.geography "geog", limit: {:srid=>4326, :type=>"st_point", :geographic=>true}
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["geog"], name: "index_geog", using: :gist
   end
 
 end

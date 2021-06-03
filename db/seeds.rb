@@ -7,6 +7,8 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
+_tid = 2;
+
 _names = []
 _names << "ミニストップ 前原西４丁目店"
 _names << "待機場所_1230@200915"
@@ -15,13 +17,32 @@ _names << "ミニストップ船橋米ヶ崎店"
 _names << "待機場所_1230@201005"
 
 _points = []
-_points << "POINT(140.0147396 35.6965257)"
-_points << "POINT(140.0215715 35.7000189)"
-_points << "POINT(140.0041245 35.6910275)"
-_points << "POINT(140.0036023 35.7120936)"
-_points << "POINT(140.0291712 35.6851166)"
+_points << "POINT(140.0169629155669 35.69656370985369)"
+_points << "POINT(140.02081975425236 35.70005667548823)"
+_points << "POINT(140.0052829693666 35.69101049118176)"
+_points << "POINT(140.00796750072277 35.715411065851846)"
+_points << "POINT(140.02840382133857 35.68562354012138)"
 
 (0..4).each do |index|
-  _name=_names[index]; _memo=Faker::JapaneseMedia::DragonBall.character; _geog=_points[index]
-  WaitingPoint.create(name: _name, memo: _memo, geog: _geog)
+  _name =_names[index]; _memo=Faker::JapaneseMedia::DragonBall.character
+  _geog = _points[index]
+  WaitingPoint.create(tid: _tid, name: _name, memo: _memo, geog: _geog)
 end
+
+=begin (geometry)
+_points = []
+_points << "POINT(140.0169629155669 35.69656370985369)"
+_points << "POINT(140.02081975425236 35.70005667548823)"
+_points << "POINT(140.0052829693666 35.69101049118176)"
+_points << "POINT(140.00796750072277 35.715411065851846)"
+_points << "POINT(140.02840382133857 35.68562354012138)"
+
+(0..4).each do |index|
+  _name =_names[index]; _memo=Faker::JapaneseMedia::DragonBall.character
+  _geom = _points[index]
+  WaitingPoint.create(name: _name, memo: _memo, geom: _geom)
+  #WaitingPoint.create(name: _name, memo: _memo, geog: _geog)
+end
+
+WaitingPoint.execute("SELECT UpdateGeometrySRID('waiting_points','geom', 3857)");
+=end 
