@@ -13,6 +13,7 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'bootsnap', '>= 1.1.0', require: false
 gem 'activerecord-postgis-adapter'
+gem 'faker'  
 
 #Debug, Framework, Test
 group :development, :test do
@@ -24,7 +25,7 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'spring-commands-rspec'  
   gem 'factory_bot_rails'
-  gem 'faker'  
+#  gem 'faker'  
   gem 'launchy'  
 end
 
