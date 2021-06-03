@@ -84,3 +84,4 @@ production:
   database: smr_wp_api_production
   username: smr_wp_api
   password: <%= ENV['SMR_WP_API_DATABASE_PASSWORD'] %>
+  url: <%= ENV.fetch('DATABASE_URL', '').sub(/^postgres/, "postgis") %>
